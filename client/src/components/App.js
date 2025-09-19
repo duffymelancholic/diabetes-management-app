@@ -30,7 +30,7 @@ function App() {
     <AuthProvider>
       <Router>
         <NavBar />
-        <div style={{ maxWidth: 600, margin: "24px auto", padding: "0 16px" }}>
+        <main className="container">
           <Switch>
             <Route path="/login">
               <Login />
@@ -54,7 +54,7 @@ function App() {
               <Redirect to="/login" />
             </Route>
           </Switch>
-        </div>
+        </main>
       </Router>
     </AuthProvider>
   );

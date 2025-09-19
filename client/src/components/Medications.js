@@ -66,52 +66,59 @@ export default function Medications() {
   }
 
   return (
-    <div>
-      <h2>Medications</h2>
+    <div className="grid">
+      <div className="card">
+        <h2>Medications</h2>
 
-      <Formik
-        initialValues={{ name: '', dose: '', time: '', status: 'pending' }}
-        validationSchema={MedSchema}
-        onSubmit={create}
-      >
-        {({ isSubmitting, status }) => (
-          <Form style={{ display: 'grid', gap: 8, marginBottom: 24 }}>
-            <label>Name</label>
-            <Field name="name" />
-            <div style={{ color: 'crimson' }}><ErrorMessage name="name" /></div>
+        <Formik
+          initialValues={{ name: '', dose: '', time: '', status: 'pending' }}
+          validationSchema={MedSchema}
+          onSubmit={create}
+        >
+          {({ isSubmitting, status }) => (
+            <Form className="form" style={{ marginBottom: 8 }}>
+              <label className="label">Name</label>
+              <Field name="name" className="input" />
+              <div className="error"><ErrorMessage name="name" /></div>
 
-            <label>Dose</label>
-            <Field name="dose" />
-            <div style={{ color: 'crimson' }}><ErrorMessage name="dose" /></div>
+              <label className="label">Dose</label>
+              <Field name="dose" className="input" />
+              <div className="error"><ErrorMessage name="dose" /></div>
 
-            <label>Time</label>
-            <Field name="time" type="time" />
-            <div style={{ color: 'crimson' }}><ErrorMessage name="time" /></div>
+              <label className="label">Time</label>
+              <Field name="time" type="time" className="input" />
+              <div className="error"><ErrorMessage name="time" /></div>
 
-            <label>Status</label>
-            <Field as="select" name="status">
-              <option value="pending">Pending</option>
-              <option value="taken">Taken</option>
-              <option value="missed">Missed</option>
-            </Field>
+              <label className="label">Status</label>
+              <Field as="select" name="status" className="input">
+                <option value="pending">Pending</option>
+                <option value="taken">Taken</option>
+                <option value="missed">Missed</option>
+              </Field>
 
-            {status && <div style={{ color: 'crimson' }}>{status}</div>}
-            <button type="submit" disabled={isSubmitting}>Add Medication</button>
-          </Form>
-        )}
-      </Formik>
+              {status && <div className="error">{status}</div>}
+              <div className="row">
+                <button type="submit" disabled={isSubmitting} className="btn">Add Medication</button>
+              </div>
+            </Form>
+          )}
+        </Formik>
 
-      {error && <div style={{ color: 'crimson' }}>{error}</div>}
+        {error && <div className="error">{error}</div>}
+      </div>
 
-      <ul style={{ listStyle: 'none', padding: 0, display: 'grid', gap: 8 }}>
+      <ul className="list-grid">
         {items.map(m => (
-          <li key={m.id} style={{ border: '1px solid #eee', padding: 8 }}>
-            <div><strong>{m.name}</strong> — {m.dose}</div>
-            <div>Time: {m.time?.slice(0,5)} | Status: <strong>{m.status}</strong></div>
-            <div style={{ display: 'flex', gap: 8, marginTop: 6 }}>
-              <button onClick={() => updateStatus(m.id, 'taken')}>Mark Taken</button>
-              <button onClick={() => updateStatus(m.id, 'missed')}>Mark Missed</button>
-              <button onClick={() => updateStatus(m.id, 'pending')}>Reset</button>
+          <li key={m.id} className="item">
+            <div className="space-between">
+              <div><strong>{m.name}</strong> — {m.dose}</div>
+              <span className={m.status === 'taken' ? 'pill ok' : m.status === 'missed' ? 'pill bad' : 'pill warn'}>{m.status}</span>
+            </div>
+            <div className="small">Time: {m.time?.slice(0,5)}</div>
+            <div className="row" style={{ marginTop: 8 }}>
+              <button onClick={() => updateStatus(m.id, 'taken')} className="btn secondary">Mark Taken</button>
+              <button onClick={() => updateStatus(m.id, 'missed')} className="btn ghost">Mark Missed</button>
+              <button onClick={() => updateStatus(m.id, 'pending')} className="btn ghost">Reset</button>
             </div>
           </li>
         ))}

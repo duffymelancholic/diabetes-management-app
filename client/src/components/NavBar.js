@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
 export default function NavBar() {
@@ -12,19 +12,23 @@ export default function NavBar() {
   }
 
   return (
-    <nav style={{ display: 'flex', gap: 12, padding: 12, borderBottom: '1px solid #eee' }}>
-      <Link to="/">Home</Link>
-      {!isAuthed && <Link to="/login">Login</Link>}
-      {!isAuthed && <Link to="/signup">Signup</Link>}
-      {isAuthed && <Link to="/dashboard">Dashboard</Link>}
-      {isAuthed && <Link to="/readings">Readings</Link>}
-      {isAuthed && <Link to="/medications">Medications</Link>}
-      {isAuthed && <Link to="/profile">Profile</Link>}
-      {isAuthed && (
-        <button onClick={handleLogout} style={{ marginLeft: 'auto' }}>
-          Logout
-        </button>
-      )}
-    </nav>
+    <header className="nav">
+      <div className="nav-inner">
+        <NavLink to={isAuthed ? '/dashboard' : '/'} className="brand">DiaManage</NavLink>
+        <nav className="nav-links">
+          {!isAuthed && <NavLink exact to="/login" activeClassName="active">Login</NavLink>}
+          {!isAuthed && <NavLink to="/signup" activeClassName="active">Signup</NavLink>}
+          {isAuthed && <NavLink to="/dashboard" activeClassName="active">Dashboard</NavLink>}
+          {isAuthed && <NavLink to="/readings" activeClassName="active">Readings</NavLink>}
+          {isAuthed && <NavLink to="/medications" activeClassName="active">Medications</NavLink>}
+          {isAuthed && <NavLink to="/profile" activeClassName="active">Profile</NavLink>}
+        </nav>
+        {isAuthed && (
+          <div className="nav-right">
+            <button onClick={handleLogout} className="btn ghost">Logout</button>
+          </div>
+        )}
+      </div>
+    </header>
   );
 }

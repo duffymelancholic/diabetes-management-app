@@ -45,40 +45,40 @@ export default function Signup() {
   }
 
   return (
-    <div>
-      <h2>Signup</h2>
+    <div className="card" style={{ maxWidth: 560, margin: '0 auto' }}>
+      <h2>Create your account</h2>
+      <p className="small">Join and get personalized insights.</p>
       <Formik
         initialValues={{ name: '', email: '', password: '', diabetes_type: '' }}
         validationSchema={SignupSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting, status }) => (
-          <Form style={{ display: 'grid', gap: 8 }}>
-            <label>Name</label>
-            <Field name="name" />
-            <div style={{ color: 'crimson' }}><ErrorMessage name="name" /></div>
+          <Form className="form">
+            <label className="label">Name</label>
+            <Field name="name" className="input" />
+            <div className="error"><ErrorMessage name="name" /></div>
 
-            <label>Email</label>
-            <Field name="email" type="email" />
-            <div style={{ color: 'crimson' }}><ErrorMessage name="email" /></div>
+            <label className="label">Email</label>
+            <Field name="email" type="email" className="input" />
+            <div className="error"><ErrorMessage name="email" /></div>
 
-            <label>Password</label>
-            <Field name="password" type="password" />
-            <div style={{ color: 'crimson' }}><ErrorMessage name="password" /></div>
+            <label className="label">Password</label>
+            <Field name="password" type="password" className="input" />
+            <div className="error"><ErrorMessage name="password" /></div>
 
-            <label>Diabetes Type (optional)</label>
-            <Field as="select" name="diabetes_type">
+            <label className="label">Diabetes Type (optional)</label>
+            <Field as="select" name="diabetes_type" className="input">
               {TYPES.map(t => (
                 <option key={t.value} value={t.value}>{t.label}</option>
               ))}
             </Field>
-            <div style={{ color: 'crimson' }}><ErrorMessage name="diabetes_type" /></div>
+            <div className="error"><ErrorMessage name="diabetes_type" /></div>
 
-            {status && <div style={{ color: 'crimson' }}>{status}</div>}
-            <button type="submit" disabled={isSubmitting}>Create Account</button>
-
-            <div>
-              Already have an account? <Link to="/login">Login</Link>
+            {status && <div className="error">{status}</div>}
+            <div className="row">
+              <button type="submit" disabled={isSubmitting} className="btn">Create Account</button>
+              <Link to="/login" className="btn secondary" style={{ textDecoration: 'none' }}>Login</Link>
             </div>
           </Form>
         )}

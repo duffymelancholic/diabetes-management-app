@@ -35,28 +35,28 @@ export default function Login() {
   }
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="card" style={{ maxWidth: 480, margin: '0 auto' }}>
+      <h2>Welcome back</h2>
+      <p className="small">Sign in to track your readings and medications.</p>
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={LoginSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting, status }) => (
-          <Form style={{ display: 'grid', gap: 8 }}>
-            <label>Email</label>
-            <Field name="email" type="email" />
-            <div style={{ color: 'crimson' }}><ErrorMessage name="email" /></div>
+          <Form className="form">
+            <label className="label">Email</label>
+            <Field name="email" type="email" className="input" />
+            <div className="error"><ErrorMessage name="email" /></div>
 
-            <label>Password</label>
-            <Field name="password" type="password" />
-            <div style={{ color: 'crimson' }}><ErrorMessage name="password" /></div>
+            <label className="label">Password</label>
+            <Field name="password" type="password" className="input" />
+            <div className="error"><ErrorMessage name="password" /></div>
 
-            {status && <div style={{ color: 'crimson' }}>{status}</div>}
-            <button type="submit" disabled={isSubmitting}>Login</button>
-
-            <div>
-              No account? <Link to="/signup">Create one</Link>
+            {status && <div className="error">{status}</div>}
+            <div className="row">
+              <button type="submit" disabled={isSubmitting} className="btn">Login</button>
+              <Link to="/signup" className="btn secondary" style={{ textDecoration: 'none' }}>Create account</Link>
             </div>
           </Form>
         )}

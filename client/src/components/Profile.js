@@ -50,7 +50,7 @@ export default function Profile() {
   }
 
   return (
-    <div>
+    <div className="card" style={{ maxWidth: 640 }}>
       <h2>Profile</h2>
       <Formik
         initialValues={{
@@ -63,25 +63,29 @@ export default function Profile() {
         enableReinitialize
       >
         {({ isSubmitting, status }) => (
-          <Form style={{ display: 'grid', gap: 8 }}>
-            <label>Diabetes Type</label>
-            <Field as="select" name="diabetes_type">
+          <Form className="form">
+            <label className="label">Diabetes Type</label>
+            <Field as="select" name="diabetes_type" className="input">
               {TYPES.map(t => (
                 <option key={t.value} value={t.value}>{t.label}</option>
               ))}
             </Field>
-            <div style={{ color: 'crimson' }}><ErrorMessage name="diabetes_type" /></div>
+            <div className="error"><ErrorMessage name="diabetes_type" /></div>
 
-            <label>Height (cm)</label>
-            <Field name="height_cm" type="number" step="0.1" />
-            <div style={{ color: 'crimson' }}><ErrorMessage name="height_cm" /></div>
+            <label className="label">Height (cm)</label>
+            <Field name="height_cm" type="number" step="0.1" className="input" />
+            <div className="error"><ErrorMessage name="height_cm" /></div>
 
-            <label>Weight (kg)</label>
-            <Field name="weight_kg" type="number" step="0.1" />
-            <div style={{ color: 'crimson' }}><ErrorMessage name="weight_kg" /></div>
+            <label className="label">Weight (kg)</label>
+            <Field name="weight_kg" type="number" step="0.1" className="input" />
+            <div className="error"><ErrorMessage name="weight_kg" /></div>
 
-            {status && <div style={{ color: status === 'Saved!' ? 'green' : 'crimson' }}>{status}</div>}
-            <button type="submit" disabled={isSubmitting}>Save</button>
+            {status && (
+              <div className={status === 'Saved!' ? 'status-ok' : 'error'}>{status}</div>
+            )}
+            <div className="row">
+              <button type="submit" disabled={isSubmitting} className="btn">Save</button>
+            </div>
           </Form>
         )}
       </Formik>
