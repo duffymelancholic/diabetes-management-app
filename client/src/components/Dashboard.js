@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
+import ToDoList from './ToDoList';
 
 export default function Dashboard() {
   const { user, education, token } = useAuth();
@@ -46,6 +47,10 @@ export default function Dashboard() {
         ) : (
           <p>Loading BMI...</p>
         )}
+      </section>
+
+      <section style={{ marginBottom: 16 }}>
+        <ToDoList />
       </section>
 
       <section>
